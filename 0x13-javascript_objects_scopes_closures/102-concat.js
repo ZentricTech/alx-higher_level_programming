@@ -1,13 +1,9 @@
 #!/usr/bin/node
-const { readFileSync, writeFile } = require('fs');
-const { argv } = require('process');
 
-const getContent = (file) => {
-  return readFileSync(file, 'utf8');
-};
-
-const concated = getContent(argv[2]) + '' + getContent(argv[3]);
-
-writeFile(argv[4], concated, 'utf8', err => {
-  if (err) throw err;
-});
+let fileA = process.argv[2];
+let fileB = process.argv[3];
+let fileC = process.argv[4];
+const fs = require('fs');
+let textA = fs.readFileSync(fileA, 'utf8');
+let textB = fs.readFileSync(fileB, 'utf8');
+fs.writeFileSync(fileC, textA + textB);
