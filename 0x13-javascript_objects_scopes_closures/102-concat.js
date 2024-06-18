@@ -1,9 +1,12 @@
 #!/usr/bin/node
 
-let fileA = process.argv[2];
-let fileB = process.argv[3];
-let fileC = process.argv[4];
-const fs = require('fs');
-let textA = fs.readFileSync(fileA, 'utf8');
-let textB = fs.readFileSync(fileB, 'utf8');
-fs.writeFileSync(fileC, textA + textB);
+const fs = require('fs').promises;
+const { argv } = require('process');
+
+fs.readFile(argv[2], 'utf8')
+  .then(data => fs.writeFile(argv[4], data, 'utf8'))
+  .catch(err => console.error(err));
+
+fs.readFile(argv[3], 'utf8')
+  .then(data => fs.writeFile(argv[4], data, { flag: 'a' }, 'utf8'))
+  .catch(err => console.error(err));
